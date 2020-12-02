@@ -1,6 +1,16 @@
-#include "config.hpp" // also include basicWM.hpp
+#include "config.hpp"
+#include "basicWM.hpp"
 
 std::string nameString = "basicWM v0.0.2";
+
+void handleEvent() {
+    XNextEvent(display, &event);
+    if(event.type == KeyPress) {
+        for (cKeybind bind : keybinds) {
+            bind.checkKeyPressed(event);
+        }
+    }
+}
 
 int main() {
     display = XOpenDisplay(NULL);
@@ -16,12 +26,7 @@ int main() {
         XDrawString(display, root, gc, 4, 12, nameString.c_str(), nameString.length());
         
         if (XPending(display) > 0) {
-            XNextEvent(display, &event);
-            if(event.type == KeyPress) {
-                for (cKeybind bind : keybinds) {
-                    bind.checkKeyPressed(event);
-                }
-            }
+            handleEvent();
         }
         else {
             /* No current event, sleep */

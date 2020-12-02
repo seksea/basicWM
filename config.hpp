@@ -1,3 +1,5 @@
+#pragma once
+
 #include "basicWM.hpp"
 
 inline std::vector<cKeybind> keybinds {
