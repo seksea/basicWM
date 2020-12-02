@@ -1,5 +1,11 @@
-#pragma once
+/* 
+ Config.hpp
+============
+Configure keybinds by changing/adding binds to 
+the vector 'keybinds'.
+*/
 
+#pragma once
 #include "basicWM.hpp"
 
 inline std::vector<cKeybind> keybinds {
