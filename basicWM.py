@@ -58,9 +58,9 @@ def handleEvent(event):
                     if keybind[3] == "windowMoveRight":
                         focusedWindow.configure(x=focusedWindow.get_geometry().x+5)
                     if keybind[3] == "windowMoveDown":
-                        focusedWindow.configure(y=focusedWindow.get_geometry().y-5)
-                    if keybind[3] == "windowMoveUp":
                         focusedWindow.configure(y=focusedWindow.get_geometry().y+5)
+                    if keybind[3] == "windowMoveUp":
+                        focusedWindow.configure(y=focusedWindow.get_geometry().y-5)
                     if keybind[3] == "raise":
                         focusedWindow.configure(stack_mode = X.Above)
 
