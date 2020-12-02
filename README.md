@@ -6,9 +6,9 @@ Compile with `-lX11` and `cpp17+`
 #
 
 ### Todo
-- [ ] Window List
-- [ ] Focusing
-- [ ] Kill Windows
+- [x] Window List
+- [x] Focusing
+- [x] Kill Windows
 - [ ] Borders
 - [ ] Workspaces
 - [ ] Tiling

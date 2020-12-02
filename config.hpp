@@ -7,8 +7,13 @@ the vector 'keybinds'.
 
 #pragma once
 #include "basicWM.hpp"
+#include <X11/X.h>
+
+int modKey = Mod1Mask;
 
 inline std::vector<cKeybind> keybinds {
-    cKeybind("Return", Mod1Mask, RUN, "alacritty"),
-    cKeybind("d", Mod1Mask, RUN, "rofi -show run"),
+    /* Default bindings */
+    cKeybind("Return", modKey, RUN, "alacritty"),
+    cKeybind("d", modKey, RUN, "rofi -show run"),
+    cKeybind("q", modKey | ShiftMask, INTERNAL, "kill"),
 };

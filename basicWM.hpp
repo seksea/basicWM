@@ -3,6 +3,7 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <cstdio>
+#include <exception>
 #include <unistd.h>
 #include <string>
 #include <iostream>
@@ -14,6 +15,10 @@ inline int curScreen;
 inline Window root;
 inline GC gc;
 inline XEvent event;
+
+/* Window List & focused window */
+inline std::vector<Window> windowList;
+inline Window focusedWindow;
 
 enum KeybindType {
     RUN, /* Run with popen, e.g open term/browser/rofi/dmenu */
@@ -43,7 +48,16 @@ public:
                     popen(command.c_str(), "r");
                 }
                 if (type == INTERNAL) {
-                    /* Run an internal command, coming later, (e.g move a window, kill a window, change workspace, etc) */
+                    /* Run an internal command, coming later, (e.g move a window, kill a window, change workspace, etc) */XEvent event;
+                    if (command == "kill") {
+                        event.xclient.type = ClientMessage;
+                        event.xclient.window = focusedWindow;
+                        event.xclient.message_type = XInternAtom(display, "WM_PROTOCOLS", true);
+                        event.xclient.format = 32;
+                        event.xclient.data.l[0] = XInternAtom(display, "WM_DELETE_WINDOW", false);
+                        event.xclient.data.l[1] = CurrentTime;
+                        XSendEvent(display, focusedWindow, False, NoEventMask, &event);
+                    }
                 }
             }
         }
