@@ -1,5 +1,5 @@
 # basicWM
-Simple X11 cpp windowmanager
+Simple minimalist X11 cpp tiling wm (that doesn't tile yet :flushed:)
 
 Compile with `-lX11` and `cpp17+`
 
