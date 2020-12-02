@@ -3,9 +3,11 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <iostream>
+#include <sstream>
 #include <string>
+#include <regex>
 
-std::string nameString = "basicWM v0.0.3";
+char* nameString = "basicWM v0.0.3";
 
 void handleEvent() {
     XNextEvent(display, &event);
@@ -35,13 +37,14 @@ void handleFocus() {
 void loop() {
     /* Event loop */
     while (true) {
-        std::string barString = nameString; // Should really use a stringstream instead
-
         char* winName;
         XFetchName(display, focusedWindow, &winName);
-        if (winName) {
-            barString += " | " + std::string(winName);
+        if (!winName) {
+            winName = "";
         }
+
+        std::string barString = std::regex_replace(barConfig, std::regex("WMNAME"), nameString);
+        barString = std::regex_replace(barString, std::regex("CURFOCUS"), winName);
 
         /* Draw nameString */
         XClearWindow(display, root);

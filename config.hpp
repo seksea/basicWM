@@ -11,6 +11,8 @@ the vector 'keybinds'.
 
 int modKey = Mod1Mask;
 
+std::string barConfig = "WMNAME | CURFOCUS";
+
 inline std::vector<cKeybind> keybinds {
     /* Default bindings */
     cKeybind("Return", modKey, RUN, "alacritty"),
