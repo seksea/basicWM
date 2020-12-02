@@ -5,10 +5,11 @@ Compile with `-lX11` and `cpp17+`
 
 #
 
-### Todo
+### Checklist
 - [x] Window List
 - [x] Focusing
 - [x] Kill Windows
+- [ ] Moving floating windows
 - [ ] Borders
 - [ ] Workspaces
 - [ ] Tiling
