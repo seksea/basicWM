@@ -11,7 +11,6 @@ char* nameString = "basicWM v0.0.3";
 
 void handleEvent() {
     XNextEvent(display, &event);
-    std::cout << event.type << "\n";
     if(event.type == KeyPress) {
         for (cKeybind bind : keybinds) {
             bind.processKeyPress(event);
