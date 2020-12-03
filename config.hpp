@@ -13,7 +13,11 @@ int modKey = Mod1Mask;
 
 std::string barConfig = "WMNAME | CURFOCUS";
 
-inline std::vector<cKeybind> keybinds {
+/* Colours */
+unsigned long barBackground = 0x1b1b1c;
+unsigned long barText = 0xeeeeee;
+
+std::vector<cKeybind> keybinds {
     /* Default bindings */
     cKeybind("Return", modKey, RUN, "alacritty"),
     cKeybind("d", modKey, RUN, "rofi -show run"),

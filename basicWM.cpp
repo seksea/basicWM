@@ -33,21 +33,31 @@ void handleFocus() {
     XRaiseWindow(display, focusedWindow);
 }
 
+std::string generateBarString() {
+    /* Get name of currently focused window */
+    char* winName;
+    XFetchName(display, focusedWindow, &winName);
+    if (!winName) {
+        winName = "";
+    }
+
+    /* Replace things in barConfig string with what they should be replaced with */
+    std::string barString = std::regex_replace(barConfig, std::regex("WMNAME"), nameString);
+    barString = std::regex_replace(barString, std::regex("CURFOCUS"), winName);
+
+    return barString;
+}
+
 void loop() {
     /* Event loop */
     while (true) {
-        char* winName;
-        XFetchName(display, focusedWindow, &winName);
-        if (!winName) {
-            winName = "";
-        }
-
-        std::string barString = std::regex_replace(barConfig, std::regex("WMNAME"), nameString);
-        barString = std::regex_replace(barString, std::regex("CURFOCUS"), winName);
-
-        /* Draw nameString */
+        /* Draw bar */
+        std::string barString = generateBarString();
         XClearWindow(display, root);
-        XDrawString(display, root, gc, 4, 10, barString.c_str(), barString.length());
+        XSetForeground(display, gc, barBackground);
+        XFillRectangle(display, root, gc, 0,0, XDefaultScreenOfDisplay(display)->width, 16);
+        XSetForeground(display, gc, barText);
+        XDrawString(display, root, gc, 4, 12, barString.c_str(), barString.length());
 
         handleFocus();
         
@@ -71,7 +81,6 @@ int main() {
     curScreen = DefaultScreen(display);
     root = RootWindow(display, curScreen);
     gc = XDefaultGC(display, curScreen);
-    XSetForeground(display, gc, 0xffffff);
     XSetErrorHandler(&errHandler);
 
     XSelectInput(display, root, SubstructureRedirectMask | SubstructureNotifyMask);
